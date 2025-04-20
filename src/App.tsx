@@ -2,10 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material';
 import { createGlobalStyle } from 'styled-components';
-import Collections from './components/Collections';
-import LookDetail from './components/LookDetail';
-import LookDetailAlt from './components/LookDetailAlt';
-import StylistList from './components/StylistList';
+import Collections from './HomeComponents/js/Collections';
+import LookDetail from './HomeComponents/js/LookDetail';
+import StylistList from './HomeComponents/js/StylistList';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -43,7 +42,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Collections />} />
           <Route path="/look/:id" element={<LookDetail />} />
-          <Route path="/look-alt/:id" element={<LookDetailAlt />} />
           <Route path="/stylists" element={<StylistList />} />
         </Routes>
       </Router>
