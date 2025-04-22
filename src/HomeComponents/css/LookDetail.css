@@ -3,7 +3,7 @@
   flex-direction: column;
   min-height: 100vh;
   background-image: url('../../assets/images/background.png');
-  background-size: cover;
+  background-size: 1280px 851px;
   background-position: center;
   background-repeat: no-repeat;
   color: white;
@@ -17,7 +17,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
   pointer-events: none;
 }
 
@@ -49,21 +48,25 @@
 
 .main-content {
   display: flex;
-  gap: 24px;
-  padding: 0 24px;
+  gap: 32px;
+  padding: 0 55px;
   position: relative;
   height: calc(100vh - 100px);
+  align-items: center;
 }
 
 .main-image-section {
-  width: 50%;
+  width: 481px;
+  height: 616px;
+  flex-shrink: 0;
   position: relative;
-  border-radius: 16px;
+  border-radius: 40px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.2);
+
+  border: 1px solid rgba(59, 59, 59, 1);
+  backdrop-filter: blur(46.4px);
+  -webkit-backdrop-filter: blur(46.4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,15 +88,17 @@
   left: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   z-index: 10;
 }
 
 .image-star-button,
 .image-heart-button,
 .image-camera-button {
+  position: absolute;
   background: rgba(0, 0, 0, 0.5) !important;
   backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border-radius: 50% !important;
   width: 40px !important;
   height: 40px !important;
@@ -105,6 +110,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   padding: 0 !important;
   margin: 0 !important;
+  z-index: 10;
 }
 
 .image-star-button:hover,
@@ -119,43 +125,26 @@
 .image-camera-button img {
   width: 20px;
   height: 20px;
+  top: 10px;
   opacity: 0.9;
 }
 
 .image-heart-button {
-  position: absolute !important;
-  left: 550px !important;
-  top: 5px !important;
+  top: auto;
+  right: auto;
+  left: 370px;
   background: rgba(0, 0, 0, 0.5) !important;
-  backdrop-filter: blur(4px);
-  border-radius: 50% !important;
-  width: 40px !important;
-  height: 40px !important;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
   border: none !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  padding: 0 !important;
-  margin: 0 !important;
+  z-index: 10;
 }
 
 .style-heart-button {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
+  top: 5px;
+  right: 430px;
+  background: rgba(0, 0, 0, 0.3);
   border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .style-heart-button img {
@@ -172,22 +161,26 @@
   padding: 8px 16px;
   border-radius: 8px;
   font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* Size Bar Container (Vertical, Accessories Tab) */
 .size-bar-container {
-  width: 80px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 16px;
-  padding: 20px 16px;
+  width: 61px;
+  height: fit-content;
+  background: rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(49.5px);
+  backdrop-filter: blur(49.5px);
+  border-radius: 35px;
+  padding-top: 29px;
+  padding-right: 7px;
+  padding-bottom: 29px;
+  padding-left: 7px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 29px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  height: fit-content;
-  margin-top: 80px; /* Adjust as needed */
+  flex-shrink: 0;
 }
 
 .size-label {
@@ -241,14 +234,17 @@
 }
 
 .tools-section {
-  flex: 1;
-  border-radius: 16px;
-  padding: 24px;
+  width: 601px;
+  height: 707px;
+  border-radius: 40px;
+  padding: 10px 30px 11px 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(59, 59, 59, 1);
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  overflow-y: hidden;
-  position: relative;
+  gap: 14px;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .tools-header {
@@ -274,15 +270,13 @@
 
 .tools-bar {
   display: flex;
-  gap: 0;
-  background: rgba(40, 40, 40, 0.5);
-  padding: 5px;
-  border-radius: 30px;
+  gap: 10px;
+  background-color: rgba(59, 59, 59, 0.8);
+  padding: 8px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   width: fit-content;
-  position: absolute;
-  top: 24px;
-  left: 220px;
-  z-index: 5;
+  margin: 0 auto;
 }
 
 .accessories-button,
@@ -352,14 +346,16 @@
 
 .style-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   flex-grow: 1;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .style-card {
   position: relative;
+  width: 158px;
+  height: 209px;
   border-radius: 16px;
   overflow: hidden;
   background: rgba(30, 30, 30, 0.6);
@@ -393,39 +389,32 @@
 }
 
 .image-camera-button {
-  position: absolute !important;
-  left: 550px !important;
-  top: 450px !important;
+  bottom: 35px;
+  right: auto;
+  top: 400px;
+  left: 370px;
   background: rgba(0, 0, 0, 0.5) !important;
-  backdrop-filter: blur(4px);
-  border-radius: 50% !important;
-  width: 40px !important;
-  height: 40px !important;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
   border: none !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  padding: 0 !important;
-  margin: 0 !important;
+  z-index: 10;
 }
 
 /* Main Tools Bar (Vertical, Tools Tab) */
 .main-tools-bar {
-  width: 80px; /* Match size bar */
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 16px;
-  padding: 20px 10px; /* Slightly less horizontal padding? Adjust as needed */
+  width: 61px;
+  height: fit-content;
+  background: rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(49.5px);
+  backdrop-filter: blur(49.5px);
+  border-radius: 35px;
+  padding-top: 29px;
+  padding-right: 7px;
+  padding-bottom: 29px;
+  padding-left: 7px;
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Button spacing */
+  gap: 29px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  height: fit-content;
-  margin-top: 80px; /* Match position */
+  flex-shrink: 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -442,7 +431,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  margin: 0 auto; /* Center buttons horizontally */
+  margin: 0 auto;
 }
 
 .main-tools-bar .tool-button:hover {
@@ -463,17 +452,17 @@
 /* Inner Tools Bar (Right Panel) */
 .inner-tools-bar-container {
   display: flex;
-  gap: 20px; /* Space between bar and potential content */
+  gap: 20px;
 }
 
 .inner-tools-bar {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* Spacing between buttons */
-  background: rgba(10, 10, 10, 0.7); /* Darker background */
+  gap: 15px;
+  background: rgba(10, 10, 10, 0.7);
   padding: 15px 10px;
   border-radius: 16px;
-  height: fit-content; /* Fit to content height */
+  height: fit-content;
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -508,7 +497,7 @@
 
 /* Optional: Styles for selected tool content area */
 .selected-tool-content {
-  flex-grow: 1; /* Take remaining space */
+  flex-grow: 1;
   padding: 10px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 8px;
@@ -533,11 +522,11 @@
 /* Footer for tools section */
 .tools-footer {
   display: flex;
-  align-items: center; /* Vertically align items */
-  padding: 10px 0; 
-  margin-top: auto; 
-  border-top: 1px solid rgba(255, 255, 255, 0.1); 
-  gap: 10px; /* Gap between scroll area and search icon */
+  align-items: center;
+  padding: 10px 0;
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 10px;
 }
 
 /* Divider line between tabs and categories */
@@ -545,24 +534,23 @@
   width: 100%;
   border: none;
   height: 1px;
-  background-color: rgba(255, 255, 255, 0.15); /* Light grey, adjust opacity as needed */
-  margin: 0; /* Remove default margins */
+  background-color: rgba(255, 255, 255, 0.15);
+  margin: 0;
 }
 
 /* Scrollable container for style names */
 .footer-style-names-scroll {
   display: flex;
-  flex-grow: 1; /* Take available space */
-  gap: 15px; /* Gap between names */
-  overflow-x: auto; /* Enable horizontal scrolling */
-  padding: 5px 0; /* Add padding for scrollbar */
+  flex-grow: 1;
+  gap: 15px;
+  overflow-x: auto;
+  padding: 5px 0;
 
-  /* Hide scrollbar (optional, browser-specific) */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 .footer-style-names-scroll::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
 /* Individual style name button in footer */
@@ -570,11 +558,11 @@
   background: none;
   border: none;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 15px; /* Adjust as needed */
+  font-size: 15px;
   font-weight: 500;
   padding: 5px 0;
   cursor: pointer;
-  white-space: nowrap; /* Prevent wrapping */
+  white-space: nowrap;
   transition: color 0.2s ease;
 }
 
@@ -583,14 +571,14 @@
 }
 
 .footer-style-name.active {
-  color: #FFD700; /* Yellow for active */
+  color: #FFD700;
 }
 
 /* Search Icon Button */
 .search-icon-button {
-  color: rgba(255, 255, 255, 0.7) !important; 
-  padding: 6px !important; 
-  flex-shrink: 0; /* Prevent icon from shrinking */
+  color: rgba(255, 255, 255, 0.7) !important;
+  padding: 6px !important;
+  flex-shrink: 0;
 }
 
 .search-icon-button:hover {

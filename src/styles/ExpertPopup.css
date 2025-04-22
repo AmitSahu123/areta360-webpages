@@ -14,23 +14,31 @@
 }
 
 .popup-content {
-  background: rgba(30, 30, 30, 0.95); /* Slightly more opaque? */
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-radius: 0; /* Remove radius for flush edge */
-  border-left: 1px solid rgba(255, 255, 255, 0.1); /* Border on the LEFT edge */
-  border-right: none; /* Remove right border */
-  border-top: none;
-  border-bottom: none;
-  padding: 24px;
-  width: 500px; /* Increased width */
-  height: 100vh; /* Full viewport height */
-  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.4); /* Adjust shadow for RIGHT edge */
+  /* background: rgba(30, 30, 30, 0.95); */ /* Old background */
+  background: rgba(255, 255, 255, 0.3); /* New background */
+  -webkit-backdrop-filter: blur(76px); /* New filter */
+  backdrop-filter: blur(76px);         /* New filter */
+  /* border-radius: 0; */ /* Old radius */
+  border-radius: 7px; /* New radius */
+  /* border-left: 1px solid rgba(255, 255, 255, 0.1); */ /* Old border */
+  /* border-right: none; */
+  /* border-top: none; */
+  /* border-bottom: none; */
+  /* padding: 24px; */ /* Old padding */
+  padding: 10px; /* New padding */
+  width: 457px; /* New width */
+  height: 832px; /* New height */
+  /* box-shadow: -5px 0 25px rgba(0, 0, 0, 0.4); */ /* Removed shadow */
   color: white;
   display: flex;
   flex-direction: column;
-  gap: 18px; 
-  overflow-y: auto; /* Allow vertical scrolling */
+  gap: 10px; /* New gap */ 
+  overflow-y: auto; /* ENSURE vertical scrolling is enabled */
+  /* Positioning based on specs - NOTE: using fixed due to overlay */
+  position: fixed; 
+  left: 822.5px; /* New left */
+  top: 50%; /* Default centering */
+  transform: translateY(-50%); /* Default centering */
 }
 
 .popup-header {
@@ -143,8 +151,8 @@
   font-weight: 500;
   text-align: center;
   transition: background-color 0.2s ease;
-  margin-top: auto; /* Push to bottom if content doesn't fill */
-  flex-shrink: 0; /* Prevent shrinking */
+  /* margin-top: auto; */ /* KEEP commented out for visibility test */
+  flex-shrink: 0; 
 }
 
 .explore-button:hover {

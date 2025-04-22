@@ -96,17 +96,17 @@ const StylistList = () => {
         </button>
         <div className="tabs">
           {tabs.map(tab => (
-            <button 
+          <button 
               key={tab}
               className={`tab ${activeTab === tab.toLowerCase() ? 'active' : ''}`}
               onClick={() => setActiveTab(tab.toLowerCase())}
-            >
+          >
               {tab}
-            </button>
+          </button>
           ))}
         </div>
       </div>
-      
+
       <div className="stylist-grid">
         {stylists.map(stylist => (
           <div key={stylist.id} className="stylist-card">

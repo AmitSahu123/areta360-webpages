@@ -101,7 +101,7 @@ const LookDetail = () => {
   ];
 
   const handleStarClick = () => {
-    navigate(`/look-alt/${id || '1'}`);
+    setShowExpertPopup(true);
   };
 
   // Handler to open the popup
@@ -267,20 +267,10 @@ const LookDetail = () => {
               <div 
                 key={style.id} 
                 className="style-card"
-                onClick={() => {
-                  handleOpenExpertPopup(style.name); 
-                }}
                 role="button"
                 tabIndex={0}
               >
                 <img className="style-image" src={style.image} alt={style.name} />
-                <button 
-                  className="style-heart-button"
-                  onClick={handleHeartClick}
-                  aria-label="Favorite"
-                >
-                  <img src={heartIcon} alt="" />
-                </button>
                 <div className="style-info">
                   <div className="style-name">{style.name}</div>
                   <div className="style-category">{style.category}</div>
