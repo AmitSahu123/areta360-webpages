@@ -4,7 +4,7 @@ import { IconButton, CircularProgress } from '@mui/material';
 import '../css/LookDetail.css';
 // Import the shared popup CSS (if not already imported globally or via LookDetail.css)
 // Assuming ExpertPopup.css needs to be imported if not already covered.
-import '../../styles/ExpertPopup.css'; 
+import '../../../styles/ExpertPopup.css'; 
 
 // Import the ExpertPopup component
 import ExpertPopup from './ExpertPopup.js';
@@ -19,34 +19,34 @@ import ExpertPopup from './ExpertPopup.js';
 // import { default as SearchIcon } from '@mui/icons-material/Search';
 
 // Import assets with corrected paths
-import areta360Logo from '../../assets/images/areta360.png';
-import cartIcon from '../../assets/icon/cart-icon.png';
-import starIcon from '../../assets/icon/star.png';
-import bagIcon from '../../assets/icon/bag.png';
-import toolsIcon from '../../assets/icon/tools.png';
-import collarIcon from '../../assets/icon/collar.png';
-import stylesIcon from '../../assets/icon/styles.png';
-import pantIcon from '../../assets/icon/pant.png';
-import coatIcon from '../../assets/icon/coat.png';
-import heartIcon from '../../assets/icon/heart.png';
-import cameraIcon from '../../assets/icon/camera.png';
-import searchIconPng from '../../assets/icon/search.png';
-import whiteModelImage from '../../assets/images/white dress model (1).png';
-import style1Image from '../../assets/images/style1.png';
-import style2Image from '../../assets/images/style2.png';
-import style3Image from '../../assets/images/style3.png';
-import style4Image from '../../assets/images/style4.png';
-import style5Image from '../../assets/images/style5.png';
-import style6Image from '../../assets/images/style6.png';
+import areta360Logo from '../../../assets/images/areta360.png';
+import cartIcon from '../../../assets/icon/cart-icon.png';
+import starIcon from '../../../assets/icon/star.png';
+import bagIcon from '../../../assets/icon/bag.png';
+import toolsIcon from '../../../assets/icon/tools.png';
+import collarIcon from '../../../assets/icon/collar.png';
+import stylesIcon from '../../../assets/icon/styles.png';
+import pantIcon from '../../../assets/icon/pant.png';
+import coatIcon from '../../../assets/icon/coat.png';
+import heartIcon from '../../../assets/icon/heart.png';
+import cameraIcon from '../../../assets/icon/camera.png';
+import searchIconPng from '../../../assets/icon/search.png';
+import whiteModelImage from '../../../assets/images/white dress model (1).png';
+import style1Image from '../../../assets/images/style1.png';
+import style2Image from '../../../assets/images/style2.png';
+import style3Image from '../../../assets/images/style3.png';
+import style4Image from '../../../assets/images/style4.png';
+import style5Image from '../../../assets/images/style5.png';
+import style6Image from '../../../assets/images/style6.png';
 import axios from 'axios';
 
 // Import the static tool images
-import t11Icon from '../../assets/icon/t11.png';
-import t22Icon from '../../assets/icon/t22.png';
-import t33Icon from '../../assets/icon/t33.png';
-import t44Icon from '../../assets/icon/t44.png';
-import t55Icon from '../../assets/icon/t55.png';
-import t66Icon from '../../assets/icon/t66.png';
+import t11Icon from '../../../assets/icon/t11.png';
+import t22Icon from '../../../assets/icon/t22.png';
+import t33Icon from '../../../assets/icon/t33.png';
+import t44Icon from '../../../assets/icon/t44.png';
+import t55Icon from '../../../assets/icon/t55.png';
+import t66Icon from '../../../assets/icon/t66.png';
 
 // Define the tools array (using placeholders now)
 const toolsArray = [

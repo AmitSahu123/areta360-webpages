@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import { Tabs, Tab, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import CollectionCard from './CollectionCard';
+import CollectionCard from './CollectionCard.js';
 import '../css/Collections.css';
 
 // Import assets
-import areta360Logo from '../../assets/images/areta360.png';
-import cartIcon from '../../assets/icon/cart-icon.png';
-import notificationIcon from '../../assets/icon/notification (1).png';
-import historyIcon from '../../assets/icon/history-icon.png';
-import image1 from '../../assets/images/1.png';
-import image2 from '../../assets/images/2.png';
-import image3 from '../../assets/images/3.png';
-import image4 from '../../assets/images/4.png';
-import image5 from '../../assets/images/5.png';
-import image6 from '../../assets/images/6.png';
-import image7 from '../../assets/images/7.png';
-import image8 from '../../assets/images/8.png';
-import style1 from '../../assets/images/style1.png';
-import style2 from '../../assets/images/style2.png';
-import style3 from '../../assets/images/style3.png';
-import style4 from '../../assets/images/style4.png';
-import style5 from '../../assets/images/style5.png';
-import style6 from '../../assets/images/style6.png';
+import areta360Logo from '../../../assets/images/areta360.png';
+import cartIcon from '../../../assets/icon/cart-icon.png';
+import notificationIcon from '../../../assets/icon/notification (1).png';
+import historyIcon from '../../../assets/icon/history-icon.png';
+import image1 from '../../../assets/images/1.png';
+import image2 from '../../../assets/images/2.png';
+import image3 from '../../../assets/images/3.png';
+import image4 from '../../../assets/images/4.png';
+import image5 from '../../../assets/images/5.png';
+import image6 from '../../../assets/images/6.png';
+import image7 from '../../../assets/images/7.png';
+import image8 from '../../../assets/images/8.png';
+import style1 from '../../../assets/images/style1.png';
+import style2 from '../../../assets/images/style2.png';
+import style3 from '../../../assets/images/style3.png';
+import style4 from '../../../assets/images/style4.png';
+import style5 from '../../../assets/images/style5.png';
+import style6 from '../../../assets/images/style6.png';
 
 const Collections = () => {
   const [activeTab, setActiveTab] = useState(0);

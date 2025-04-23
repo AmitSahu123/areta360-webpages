@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 import { Modal, Box, Typography, Button, IconButton } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import CloseIcon from '@mui/icons-material/Close';
+import { IoCallOutline, IoChatbubbleEllipsesOutline, IoVideocamOutline } from 'react-icons/io5';
 
 // Import necessary icons and assets (adjust paths if needed)
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import StarIcon from '@mui/icons-material/Star';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { HelpOutline } from '@mui/icons-material';
 import LanguageIcon from '@mui/icons-material/Language';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-// Import assets and styles with corrected paths
-import toolsIcon from '../../assets/icon/tools.png';
-import topStylistImage from '../../assets/images/topstylist.png';
-import topDesignerImage from '../../assets/images/topdesigner.png';
+// Import assets with updated paths
+import toolsIcon from '../../../assets/icon/tools.png';
+import topStylistImage from '../../../assets/images/topstylist.png';
+import topDesignerImage from '../../../assets/images/topdesigner.png';
 
-// Import the CSS file with corrected path
-import '../../styles/ExpertPopup.css';
+// Import styles with updated path
+import '../../../styles/ExpertPopup.css';
 
 const ExpertPopup = ({ isOpen, onClose, navigate }) => {
   if (!isOpen) {
@@ -47,7 +50,7 @@ const ExpertPopup = ({ isOpen, onClose, navigate }) => {
           <div>
             <h2>Talk to our Expert</h2>
             <span className="popup-subtitle">
-              <HelpOutlineIcon fontSize="inherit" style={{ verticalAlign: 'middle', marginRight: '4px' }}/> 
+              <HelpOutline fontSize="inherit" style={{ verticalAlign: 'middle', marginRight: '4px' }}/> 
               Stylist/Designer
             </span>
           </div>

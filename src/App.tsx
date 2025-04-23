@@ -1,11 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material';
-import { createGlobalStyle } from 'styled-components';
-import Collections from './HomeComponents/js/Collections';
-import LookDetail from './HomeComponents/js/LookDetail';
-import StylistList from './HomeComponents/js/StylistList';
+import CssBaseline from '@mui/material/CssBaseline';
+import Collections from './components/HomeComponents/js/Collections.js';
+import LookDetail from './components/HomeComponents/js/LookDetail.js';
+import StylistList from './components/HomeComponents/js/StylistList.js';
 
+// Comment out the entire GlobalStyle block
+/*
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -20,6 +22,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 `;
+*/
 
 const theme = createTheme({
   palette: {
@@ -37,7 +40,7 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyle />
+      <CssBaseline />
       <Router>
         <Routes>
           <Route path="/" element={<Collections />} />
@@ -49,4 +52,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

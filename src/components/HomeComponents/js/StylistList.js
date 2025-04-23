@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom'; // COMMENT OUT HOOK
 import { IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import LanguageIcon from '@mui/icons-material/Language';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import StarIcon from '@mui/icons-material/Star';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
+import { 
+    IoArrowBack, 
+    IoHelpCircleOutline, 
+    IoLanguageOutline, 
+    IoChevronDown, 
+    IoCalendarOutline, 
+    IoChatbubbleOutline, 
+    IoRibbonOutline,
+    IoFlashOutline
+} from 'react-icons/io5';
 import '../css/StylistList.css';
 
-import areta360Logo from '../../assets/images/areta360.png';
-import topStylistImage from '../../assets/images/topstylist.png';
-import topDesignerImage from '../../assets/images/topdesigner.png';
+import areta360Logo from '../../../assets/images/areta360.png';
+import topStylistImage from '../../../assets/images/topstylist.png';
+import topDesignerImage from '../../../assets/images/topdesigner.png';
 
 const stylists = [
   {
@@ -57,13 +57,14 @@ const stylists = [
 ];
 
 const StylistList = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // COMMENT OUT HOOK
   const [activeTab, setActiveTab] = useState('all');
 
   const tabs = ['All', 'Stylist', 'Designer', 'Memberships'];
 
   const handleBack = () => {
-    navigate(-1);
+    // navigate(-1); // COMMENT OUT USAGE
+    console.log("Back button clicked (navigate disabled)");
   };
 
   const handleHelpClick = () => console.log('Help clicked');
@@ -78,21 +79,21 @@ const StylistList = () => {
           src={areta360Logo} 
           alt="Areta360" 
           className="logo" 
-          onClick={() => navigate('/')}
+          // onClick={() => navigate('/')} // COMMENT OUT USAGE
         />
         <div className="header-right">
           <button className="header-button help-button" onClick={handleHelpClick}>
-            <HelpOutlineIcon fontSize="small"/> Help
+            <IoHelpCircleOutline size={20}/> Help
           </button>
           <button className="header-button language-button" onClick={handleLanguageClick}>
-            <LanguageIcon fontSize="small"/> UK English <KeyboardArrowDownIcon fontSize="small"/>
+            <IoLanguageOutline size={20}/> UK English <IoChevronDown size={20}/>
           </button>
         </div>
       </div>
 
       <div className="sub-header-container">
         <button className="back-button" onClick={handleBack}>
-          <ArrowBackIcon /> Back
+          <IoArrowBack /> Back
         </button>
         <div className="tabs">
           {tabs.map(tab => (
@@ -112,11 +113,11 @@ const StylistList = () => {
           <div key={stylist.id} className="stylist-card">
             <div className="card-header">
               {stylist.isTopStylist && <span className="expert-label">TOP STYLIST</span>}
-              <EmojiEventsIcon className="crown-icon"/>
+              <IoRibbonOutline className="crown-icon"/>
             </div>
             {stylist.available && (
               <div className="available-tag">
-                <ElectricBoltIcon fontSize="small" /> Available ASAP
+                <IoFlashOutline size={16} /> Available ASAP
               </div>
             )}
             <img 
@@ -127,10 +128,10 @@ const StylistList = () => {
             <div className="stylist-info">
               <h3 className="stylist-name">{stylist.name} {stylist.countryFlag}</h3>
               <p className="stylist-detail-item">
-                <CalendarTodayIcon fontSize="inherit"/> {stylist.experience}
+                <IoCalendarOutline size="inherit"/> {stylist.experience}
               </p>
               <p className="stylist-detail-item">
-                <ChatBubbleOutlineIcon fontSize="inherit"/> 
+                <IoChatbubbleOutline size="inherit"/> 
                 {stylist.sessions} Sessions ( {stylist.reviews} reviews )
               </p>
             </div>
