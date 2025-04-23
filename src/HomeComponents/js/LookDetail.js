@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { IconButton } from '@mui/material';
+import { IconButton, CircularProgress } from '@mui/material';
 import '../css/LookDetail.css';
 // Import the shared popup CSS (if not already imported globally or via LookDetail.css)
 // Assuming ExpertPopup.css needs to be imported if not already covered.
 import '../../styles/ExpertPopup.css'; 
 
 // Import the ExpertPopup component
-import ExpertPopup from './ExpertPopup';
+import ExpertPopup from './ExpertPopup.js';
 
-// Import necessary icons (add missing ones if needed)
-import CropIcon from '@mui/icons-material/Crop';
-import TuneIcon from '@mui/icons-material/Tune';
-import GridOnIcon from '@mui/icons-material/GridOn';
-import StraightenIcon from '@mui/icons-material/Straighten';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import CloseIcon from '@mui/icons-material/Close';
-import SearchIcon from '@mui/icons-material/Search';
+// COMMENT OUT MUI ICONS IMPORTS
+// import CropIcon from '@mui/icons-material/Crop';
+// import TuneIcon from '@mui/icons-material/Tune';
+// import GridOnIcon from '@mui/icons-material/GridOn';
+// import StraightenIcon from '@mui/icons-material/Straighten';
+// import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+// import CloseIcon from '@mui/icons-material/Close';
+// import { default as SearchIcon } from '@mui/icons-material/Search';
 
 // Import assets with corrected paths
 import areta360Logo from '../../assets/images/areta360.png';
@@ -30,6 +30,7 @@ import pantIcon from '../../assets/icon/pant.png';
 import coatIcon from '../../assets/icon/coat.png';
 import heartIcon from '../../assets/icon/heart.png';
 import cameraIcon from '../../assets/icon/camera.png';
+import searchIconPng from '../../assets/icon/search.png';
 import whiteModelImage from '../../assets/images/white dress model (1).png';
 import style1Image from '../../assets/images/style1.png';
 import style2Image from '../../assets/images/style2.png';
@@ -37,27 +38,39 @@ import style3Image from '../../assets/images/style3.png';
 import style4Image from '../../assets/images/style4.png';
 import style5Image from '../../assets/images/style5.png';
 import style6Image from '../../assets/images/style6.png';
+import axios from 'axios';
 
-// Define the tools array (similar to Look.js)
+// Import the static tool images
+import t11Icon from '../../assets/icon/t11.png';
+import t22Icon from '../../assets/icon/t22.png';
+import t33Icon from '../../assets/icon/t33.png';
+import t44Icon from '../../assets/icon/t44.png';
+import t55Icon from '../../assets/icon/t55.png';
+import t66Icon from '../../assets/icon/t66.png';
+
+// Define the tools array (using placeholders now)
 const toolsArray = [
-  { id: 'crop', icon: <CropIcon />, label: 'Crop' },
-  { id: 'adjust', icon: <TuneIcon />, label: 'Adjust' },
-  { id: 'grid', icon: <GridOnIcon />, label: 'Grid' },
-  { id: 'ruler', icon: <StraightenIcon />, label: 'Ruler' },
-  { id: 'price', icon: <AccountBalanceWalletIcon />, label: 'Price' },
-  { id: 'close', icon: <CloseIcon />, label: 'Close' } // Assuming close functionality here
+  { id: 'crop', imageSrc: t11Icon, label: 'Crop' },
+  { id: 'adjust', imageSrc: t22Icon, label: 'Adjust' },
+  { id: 'grid', imageSrc: t33Icon, label: 'Grid' },
+  { id: 'ruler', imageSrc: t44Icon, label: 'Ruler' },
+  { id: 'price', imageSrc: t55Icon, label: 'Price' },
+  { id: 'close', imageSrc: t66Icon, label: 'Close' }
 ];
 
 const LookDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
   const [selectedSize, setSelectedSize] = useState('M');
   const [activeTab, setActiveTab] = useState('accessories');
   const [activeCategory, setActiveCategory] = useState('collar');
   const [showExpertPopup, setShowExpertPopup] = useState(false);
-  // State for the *main* tool selection (Crop, Adjust, etc.)
   const [selectedMainTool, setSelectedMainTool] = useState(null);
-  const [activeFooterStyle, setActiveFooterStyle] = useState(null); // Track active style in footer
+  const [activeFooterStyle, setActiveFooterStyle] = useState(null);
+  const [displayImage, setDisplayImage] = useState(whiteModelImage);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentObjectURL, setCurrentObjectURL] = useState(null);
 
   const sizes = ['M', 'L', 'XL', 'XXL', '3XL'];
 
@@ -100,27 +113,114 @@ const LookDetail = () => {
     }
   ];
 
+  useEffect(() => {
+    return () => {
+      if (currentObjectURL) {
+        URL.revokeObjectURL(currentObjectURL);
+      }
+    };
+  }, [currentObjectURL]);
+
+  const handleStyleClick = async (garmentImageUrl) => {
+    if (isLoading) return;
+    console.log("handleStyleClick triggered for garment:", garmentImageUrl);
+    setIsLoading(true);
+    console.log("Attempting to fetch person image from displayImage:", displayImage);
+    
+    let previousVtonUrl = null; 
+    if (displayImage.startsWith('blob:')) {
+        previousVtonUrl = currentObjectURL; 
+    }
+
+    try {
+      const personImageResponse = await fetch(displayImage);
+      console.log("Person image fetch response status:", personImageResponse.status);
+      if (!personImageResponse.ok) {
+        throw new Error(`Failed to fetch person image: ${personImageResponse.statusText}`);
+      }
+      const garmentImageResponse = await fetch(garmentImageUrl);
+      console.log("Garment image fetch response status:", garmentImageResponse.status);
+      if (!garmentImageResponse.ok) {
+        throw new Error(`Failed to fetch garment image: ${garmentImageResponse.statusText}`);
+      }
+      const personImageBlob = await personImageResponse.blob();
+      const garmentImageBlob = await garmentImageResponse.blob();
+      console.log("Blobs created successfully.");
+
+      const formData = new FormData();
+      formData.append('person_image', personImageBlob, 'person.jpg'); 
+      formData.append('garment_image', garmentImageBlob, 'garment.jpg');
+      console.log("FormData prepared, sending to VTON API...");
+
+      const response = await axios.post(
+        'http://localhost:3000/vton',
+        formData,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' },
+          responseType: 'blob'
+        }
+      );
+      console.log("VTON API response received, status:", response.status);
+
+      if (previousVtonUrl) { 
+          console.log("Revoking previous VTON/uploaded URL:", previousVtonUrl);
+          URL.revokeObjectURL(previousVtonUrl);
+      }
+      
+      const newObjectURL = URL.createObjectURL(response.data);
+      console.log("Created new VTON result URL:", newObjectURL);
+      setCurrentObjectURL(newObjectURL);
+      setDisplayImage(newObjectURL);
+
+    } catch (error) {
+      console.error('Error during VTON process inside handleStyleClick:', error);
+    } finally {
+      console.log("handleStyleClick finished.");
+      setIsLoading(false);
+    }
+  };
+
   const handleStarClick = () => {
     setShowExpertPopup(true);
   };
 
-  // Handler to open the popup
   const handleOpenExpertPopup = (styleName) => {
     setShowExpertPopup(true);
   };
   
-  // Placeholder handler for heart button click (stops propagation)
   const handleHeartClick = (e) => {
     e.stopPropagation();
-    // Add actual favorite toggle logic here if needed
+    console.log("Heart clicked");
   };
 
-  // Handler for the main tool buttons (Crop, Adjust, etc.)
   const handleMainToolClick = (toolId) => {
     if (toolId === 'close') {
       navigate('/'); 
     } else {
       setSelectedMainTool(toolId === selectedMainTool ? null : toolId);
+    }
+  };
+
+  const handleCameraButtonClick = () => {
+    console.log("Camera button clicked, triggering input...");
+    fileInputRef.current?.click();
+  };
+
+  const handleImageUpload = (event) => {
+    console.log("File input changed:", event.target.files);
+    const file = event.target.files?.[0];
+    if (file) {
+      if (currentObjectURL) {
+        console.log("Revoking previous URL:", currentObjectURL);
+        URL.revokeObjectURL(currentObjectURL);
+      }
+      const newObjectURL = URL.createObjectURL(file);
+      console.log("Created new URL for uploaded file:", newObjectURL);
+      setCurrentObjectURL(newObjectURL);
+      setDisplayImage(newObjectURL);
+    }
+    if (event.target) {
+      event.target.value = null;
     }
   };
 
@@ -140,24 +240,34 @@ const LookDetail = () => {
 
       <div className="main-content">
         <div className="main-image-section">
+          {isLoading && (
+            <div className="loading-overlay">
+              <CircularProgress color="inherit" />
+            </div>
+          )}
           <div className="action-buttons-container">
             <IconButton className="image-star-button" onClick={handleStarClick}>
               <img src={starIcon} alt="Star" />
             </IconButton>
-            <IconButton className="image-heart-button">
+            <IconButton className="image-heart-button" onClick={handleHeartClick}>
               <img src={heartIcon} alt="Heart" />
             </IconButton>
-            <IconButton className="image-camera-button">
+            <IconButton className="image-camera-button" onClick={handleCameraButtonClick}>
               <img src={cameraIcon} alt="Camera" />
             </IconButton>
           </div>
-          <img className="main-image" src={whiteModelImage} alt="Look" />
+          <img className="main-image" src={displayImage} alt="Look" />
           <div className="image-counter">Look | 1/4</div>
+          <input 
+            type="file"
+            accept="image/png, image/jpeg, image/*"
+            ref={fileInputRef}
+            style={{ display: 'none' }} 
+            onChange={handleImageUpload}
+          />
         </div>
 
-        {/* === Conditionally render the TOOLBAR NEXT TO THE IMAGE === */}
         {activeTab === 'accessories' ? (
-          // Show Size Bar when Accessories tab is active
           <div className="size-bar-container"> 
             <div className="size-label">Size: {selectedSize}</div>
             <div className="size-buttons">
@@ -173,9 +283,7 @@ const LookDetail = () => {
             </div>
           </div>
         ) : (
-          // Show Main Tools Bar when Tools tab is active
           <div className="main-tools-bar"> 
-            {/* Add Tools Label */}
             <div className="main-tools-label">Tools</div> 
             {toolsArray.map((tool) => (
               <button
@@ -184,12 +292,11 @@ const LookDetail = () => {
                 onClick={() => handleMainToolClick(tool.id)}
                 title={tool.label}
               >
-                {tool.icon}
+                <img src={tool.imageSrc} alt={tool.label} style={{ width: '24px', height: '24px' }} /> 
               </button>
             ))}
           </div>
         )}
-        {/* === End Conditional Toolbar === */}
 
         <div className="tools-section">
           <div className="tools-header">
@@ -199,9 +306,7 @@ const LookDetail = () => {
             </h2>
           </div>
 
-          {/* NEW: Wrapper for tabs and categories */}
           <div className="controls-container">
-            {/* Accessories/Tools Tabs */}
             <div className="header-tab-buttons">
               <button
                 className={`accessories-button ${activeTab === 'accessories' ? 'active' : ''}`}
@@ -223,12 +328,9 @@ const LookDetail = () => {
               </button>
             </div>
 
-            {/* Divider Line */}
             <hr className="controls-divider" />
 
-            {/* Category Bar */}
             <div className="category-bar">
-              {/* Collar button restored */}
               <button
                 className={`category-button ${activeCategory === 'collar' ? 'active' : ''}`}
                 onClick={() => setActiveCategory('collar')}
@@ -259,16 +361,16 @@ const LookDetail = () => {
               </button>
             </div>
           </div>
-          {/* END NEW Wrapper */}
 
-          {/* Content Grid (Style Grid) */}
           <div className="style-grid">
             {styleOptions.map((style) => (
               <div 
                 key={style.id} 
-                className="style-card"
+                className={`style-card ${isLoading ? 'disabled' : ''}`}
                 role="button"
-                tabIndex={0}
+                tabIndex={isLoading ? -1 : 0}
+                onClick={() => !isLoading && handleStyleClick(style.image)}
+                onKeyPress={(e) => e.key === 'Enter' && !isLoading && handleStyleClick(style.image)}
               >
                 <img className="style-image" src={style.image} alt={style.name} />
                 <div className="style-info">
@@ -279,7 +381,6 @@ const LookDetail = () => {
             ))}
           </div>
 
-          {/* Footer MUST be INSIDE tools-section */}
           <div className="tools-footer">
             <div className="footer-style-names-scroll">
               {styleOptions.map((style) => (
@@ -293,14 +394,13 @@ const LookDetail = () => {
               ))}
             </div>
             <IconButton className="search-icon-button">
-              <SearchIcon />
+              <img src={searchIconPng} alt="Search" style={{ width: '24px', height: '24px' }} />
             </IconButton>
           </div>
 
-        </div> {/* <<< CORRECT Closing tag for tools-section */}
-      </div> {/* End of main-content */}
+        </div>
+      </div>
 
-      {/* Render the ExpertPopup */}
       <ExpertPopup 
         isOpen={showExpertPopup}
         onClose={() => setShowExpertPopup(false)}
